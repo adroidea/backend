@@ -1,36 +1,24 @@
 import { AuthenticatedGuard, DiscordAuthGuard } from 'src/auth/guards';
-import { Controller, Get, Inject, Req, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Inject, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { ROUTES, SERVICES } from 'src/utils/constants';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthenticationProvider } from 'src/auth/services/auth/auth';
 import { Response } from 'express';
 
 @ApiTags('authentification')
-@Controller('auth')
+@Controller(ROUTES.AUTH)
 export class AuthController {
-    constructor(@Inject('AUTH_SERVICE') private readonly authService: AuthenticationProvider) {}
+    constructor(@Inject(SERVICES.AUTH) private readonly authService: AuthenticationProvider) {}
 
     @Get('login')
     @UseGuards(DiscordAuthGuard)
-    login() {
-        return 'login';
-    }
+    login() {}
 
-    @Get('Redirect')
+    @Get('redirect')
     @UseGuards(DiscordAuthGuard)
     async redirect(@Req() req: any, @Res() res: Response) {
         if (req.user) {
-            const { code }: { code: string } = req.query;
-            console.log(code);
-            try {
-                // Exchange the code for an access token and additional data
-                const tokenResponse = await this.authService.exchangeCodeForToken(code);
-                console.log(tokenResponse);
-
-                res.sendStatus(200);
-            } catch (error) {
-                console.error(error);
-                res.sendStatus(500);
-            }
+            res.redirect('http://localhost:3000/dashboard');
         } else {
             res.sendStatus(401);
         }
@@ -42,7 +30,7 @@ export class AuthController {
         return req.user;
     }
 
-    @Get('logout')
+    @Post('logout')
     @UseGuards(AuthenticatedGuard)
     logout(@Req() req: any, @Res() res: Response) {
         req.logout(err => {

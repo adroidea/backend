@@ -5,8 +5,9 @@ import mongoose from 'mongoose';
 
 export interface IUser {
     id: string;
-    username: string;
-    guilds: IUserGuilds;
+
+    accessToken: string;
+    refreshToken: string;
 }
 
 export interface IUserGuilds {
@@ -20,22 +21,13 @@ export const userSchema = new mongoose.Schema<IUser>({
         required: true,
         unique: true
     },
-    username: {
+    accessToken: {
         type: String,
         required: true
     },
-    guilds: {
-        known: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: MODELS.GUILD
-            }
-        ],
-        unknown: [
-            {
-                type: Object
-            }
-        ]
+    refreshToken: {
+        type: String,
+        required: true
     }
 });
 
