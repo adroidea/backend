@@ -26,12 +26,18 @@ async function bootstrap() {
             cookie: {
                 maxAge: 1000 * 60 * 60 * 24
             },
-            secret: 'jaigopalexisPGHQtesrruigigaogugqmocheiopgconnarderqg',
+            secret: process.env.COOKIE_SECRET,
             resave: false,
             saveUninitialized: false,
             store: redisStore
         })
     );
+
+    app.enableCors({
+        origin: ['http://localhost:3000'],
+        credentials: true
+    });
+
     app.use(passport.initialize());
     app.use(passport.session());
 
@@ -46,9 +52,6 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup('swagger', app, document);
 
-    /**
-     * Listen on port 3000
-     */
-    await app.listen(3000);
+    await app.listen(process.env.PORT);
 }
 bootstrap();
