@@ -2,11 +2,12 @@ import { IGuild } from 'src/schema/guildModel';
 import { IUserGuilds } from 'src/schema/userModel';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
+import { MODELS } from 'src/utils/constants';
 import { Model } from 'mongoose';
 
 @Injectable()
 export class GuildService {
-    constructor(@InjectModel('Guild') private readonly GuildModel: Model<IGuild>) {}
+    constructor(@InjectModel(MODELS.GUILD) private readonly GuildModel: Model<IGuild>) {}
 
     async getUserGuilds(guilds: IUserGuilds): Promise<IUserGuilds> {
         let { known, unknown } = guilds;
