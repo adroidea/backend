@@ -2,11 +2,12 @@ import { Body, Controller, Get, Param, Patch, Req, UseGuards } from '@nestjs/com
 import { ApiTags } from '@nestjs/swagger';
 import { AuthenticatedGuard } from 'src/auth/guards';
 import { GuildService } from 'src/guild/guild.service';
-import { IGuild } from 'src/schema/guildModel';
-import { IUserGuilds } from 'src/schema/userModel';
+import { IGuild } from 'src/utils/schema/guildModel';
+import { IUserGuilds } from 'src/utils/schema/userModel';
+import { ROUTES } from 'src/utils/constants';
 
 @ApiTags('guilds')
-@Controller('guilds')
+@Controller(ROUTES.GUILDS)
 export class GuildController {
     constructor(private readonly guildService: GuildService) {}
 

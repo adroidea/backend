@@ -1,5 +1,5 @@
-import { IGuild } from 'src/schema/guildModel';
-import { IUserGuilds } from 'src/schema/userModel';
+import { IGuild } from 'src/utils/schema/guildModel';
+import { IUserGuilds } from 'src/utils/schema/userModel';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { MODELS } from 'src/utils/constants';

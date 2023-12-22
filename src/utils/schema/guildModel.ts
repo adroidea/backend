@@ -1,6 +1,7 @@
 import { IQOtD, qotdSchema } from './qotd.model';
 import { ITemporaryVoice, temporaryVoiceSchema } from './temporaryVoiceModel';
 import { ITwitchLive, twitchLiveSchema } from './twitchLiveModel';
+import { MODELS } from 'src/utils/constants';
 
 import mongoose from 'mongoose';
 
@@ -78,4 +79,4 @@ export const guildSchema = new mongoose.Schema<IGuild>({
     }
 });
 
-export const GuildModel = mongoose.model<IGuild>('Guild', guildSchema);
+export const GuildModel = mongoose.model<IGuild>(MODELS.GUILD, guildSchema);

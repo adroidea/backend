@@ -1,18 +1,19 @@
 import { AuthenticationProvider } from 'src/auth/services/auth/auth';
 import { AxiosResponse } from 'axios';
 import { HttpService } from '@nestjs/axios';
-import { IGuild } from 'src/schema/guildModel';
-import { IUser } from 'src/schema/userModel';
+import { IGuild } from 'src/utils/schema/guildModel';
+import { IUser } from 'src/utils/schema/userModel';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
+import { MODELS } from 'src/utils/constants';
 import { Model } from 'mongoose';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class AuthService implements AuthenticationProvider {
     constructor(
-        @InjectModel('User') private readonly userModel: Model<IUser>,
-        @InjectModel('Guild') private readonly guildModel: Model<IGuild>,
+        @InjectModel(MODELS.USER) private readonly userModel: Model<IUser>,
+        @InjectModel(MODELS.GUILD) private readonly guildModel: Model<IGuild>,
         private readonly httpService: HttpService
     ) {}
 

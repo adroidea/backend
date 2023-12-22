@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { AuthenticationProvider } from 'src/auth/services/auth/auth';
-import { IUser } from 'src/schema/userModel';
+import { IUser } from 'src/utils/schema/userModel';
 import { PassportSerializer } from '@nestjs/passport';
 import { SERVICES } from 'src/utils/constants';
 
@@ -14,7 +14,15 @@ export class SessionSerializer extends PassportSerializer {
     }
 
     async deserializeUser(user: IUser, done: (err: Error, user: IUser) => void) {
-        const userDB = await this.userService.getUser(user.id);
-        return userDB ? done(null, userDB) : done(null, null);
+        try {
+            const userDB = await this.userService.getUser(user.id);
+            if (userDB) {
+                return done(null, userDB);
+            }
+            const newUser = await this.userService.createUser(user);
+            return done(null, newUser);
+        } catch (err) {
+            done(err, null);
+        }
     }
 }

@@ -1,4 +1,4 @@
-import { IUser } from 'src/schema/userModel';
+import { IUser } from 'src/utils/schema/userModel';
 
 export interface AuthenticationProvider {
     validateUser(userDetails: IUser): Promise<IUser>;

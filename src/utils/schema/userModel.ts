@@ -1,14 +1,12 @@
 import { GuildInfo } from 'passport-discord';
-import { IGuild } from 'src/schema/guildModel';
+import { IGuild } from 'src/utils/schema/guildModel';
+import { MODELS } from 'src/utils/constants';
 import mongoose from 'mongoose';
 
 export interface IUser {
     id: string;
     username: string;
     guilds: IUserGuilds;
-    accent_color?: number;
-    avatar?: string;
-    banner?: string;
 }
 
 export interface IUserGuilds {
@@ -19,18 +17,18 @@ export interface IUserGuilds {
 export const userSchema = new mongoose.Schema<IUser>({
     id: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     username: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     guilds: {
         known: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'Guild'
+                ref: MODELS.GUILD
             }
         ],
         unknown: [
@@ -38,19 +36,7 @@ export const userSchema = new mongoose.Schema<IUser>({
                 type: Object
             }
         ]
-    },
-    accent_color: {
-        type: Number,
-        required: false
-    },
-    avatar: {
-        type: String,
-        required: false
-    },
-    banner: {
-        type: String,
-        required: false
     }
 });
 
-export const GuildModel = mongoose.model<IUser>('User', userSchema);
+export const UserModel = mongoose.model<IUser>(MODELS.USER, userSchema);
