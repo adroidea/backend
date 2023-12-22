@@ -5,7 +5,6 @@ import mongoose from 'mongoose';
 
 export interface IUser {
     id: string;
-
     accessToken: string;
     refreshToken: string;
 }

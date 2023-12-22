@@ -1,13 +1,16 @@
 export enum ROUTES {
     AUTH = 'auth',
-    GUILDS = 'guilds'
+    DISCORD = 'discord',
+    GUILDS = 'guilds',
 }
 
 export enum SERVICES {
-    AUTH = 'AUTH_SERVICE'
+    AUTH = 'AUTH_SERVICE',
+    DISCORD = 'DISCORD_SERVICE',
+    DISCORD_HTTP = 'DISCORD_HTTP_SERVICE',
 }
 
 export enum MODELS {
-    USER = 'User',
-    GUILD = 'Guild'
+    GUILD = 'Guild',
+    USER = 'User'
 }
