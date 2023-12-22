@@ -1,6 +1,4 @@
 import * as dotenv from 'dotenv';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { GuildModule } from './guild/guild.module';
 import { Module } from '@nestjs/common';
@@ -22,7 +20,7 @@ dotenv.config({ path });
         GuildModule,
         AuthModule
     ],
-    controllers: [AppController],
-    providers: [AppService]
+    controllers: [],
+    providers: []
 })
 export class AppModule {}
