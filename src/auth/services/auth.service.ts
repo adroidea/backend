@@ -1,4 +1,4 @@
-import { AuthenticationProvider } from 'src/auth/services/auth/auth';
+import { AuthenticationProvider } from 'src/auth/services/auth';
 import { HttpService } from '@nestjs/axios';
 import { IGuild } from 'src/utils/schema/guildModel';
 import { IUser } from 'src/utils/schema/userModel';

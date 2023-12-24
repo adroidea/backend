@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { AuthenticationProvider } from 'src/auth/services/auth/auth';
+import { AuthenticationProvider } from 'src/auth/services/auth';
 import { IUser } from 'src/utils/schema/userModel';
 import { PassportSerializer } from '@nestjs/passport';
 import { SERVICES } from 'src/utils/constants';

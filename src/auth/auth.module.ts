@@ -1,6 +1,6 @@
 import { MODELS, SERVICES } from 'src/utils/constants';
-import { AuthController } from './controllers/auth/auth.controller';
-import { AuthService } from './services/auth/auth.service';
+import { AuthController } from './controllers/auth.controller';
+import { AuthService } from './services/auth.service';
 import { DiscordStrategy } from 'src/auth/strategies';
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
