@@ -2,7 +2,7 @@ import { AuthenticatedGuard, DiscordAuthGuard } from 'src/auth/guards';
 import { Controller, Get, Inject, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { ROUTES, SERVICES } from 'src/utils/constants';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthenticationProvider } from 'src/auth/services/auth/auth';
+import { AuthenticationProvider } from 'src/auth/services/auth';
 import { Response } from 'express';
 
 @ApiTags('authentification')
@@ -27,7 +27,7 @@ export class AuthController {
     @Get('status')
     @UseGuards(AuthenticatedGuard)
     status(@Req() req: any) {
-        return req.user;
+        return { id: req.user.id };
     }
 
     @Get('logout')

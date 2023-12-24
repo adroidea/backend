@@ -1,6 +1,6 @@
+import { GuildInfo, Profile } from 'passport-discord';
 import { Inject, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
-import { GuildInfo } from 'passport-discord';
 import { IDiscordHttpService } from 'src/discord/interfaces/discord-http';
 import { IDiscordService } from 'src/discord/interfaces/discord';
 import { SERVICES } from 'src/utils/constants';
@@ -39,5 +39,10 @@ export class DiscordService implements IDiscordService {
             mutualGuilds,
             nonSharedGuilds
         };
+    }
+
+    async getUser(accessToken: string): Promise<Profile> {
+        const { data } = await this.discordHttpService.fetchUser(accessToken);
+        return data;
     }
 }

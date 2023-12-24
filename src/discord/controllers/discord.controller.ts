@@ -15,4 +15,12 @@ export class DiscordController {
             return this.discordService.getMutualGuilds((req.user as IUser).accessToken);
         }
     }
+
+    @Get('user')
+    @UseGuards(AuthenticatedGuard)
+    async getUser(@Req() req: any) {
+        if (req.user) {
+            return this.discordService.getUser((req.user as IUser).accessToken);
+        }
+    }
 }
