@@ -6,6 +6,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { MODELS } from 'src/utils/constants';
 import { Model } from 'mongoose';
+import { createHmac } from 'crypto';
 
 @Injectable()
 export class AuthService implements AuthenticationProvider {
@@ -35,6 +36,17 @@ export class AuthService implements AuthenticationProvider {
         if (!user) {
             throw new Error('User not found');
         }
+
+        const hashAT = createHmac('sha256', process.env.SECRET)
+            .update(userDetails.accessToken)
+            .digest('hex');
+
+        const hashRT = createHmac('sha256', process.env.SECRET)
+            .update(userDetails.refreshToken)
+            .digest('hex');
+
+        userDetails.accessToken = hashAT;
+        userDetails.refreshToken = hashRT;
 
         return await this.userModel.findOneAndUpdate({ id }, userDetails, { new: true });
     }
