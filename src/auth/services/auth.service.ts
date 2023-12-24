@@ -22,6 +22,17 @@ export class AuthService implements AuthenticationProvider {
     }
 
     async createUser(userDetails: IUser): Promise<IUser> {
+        const hashAT = createHmac('sha256', process.env.SECRET)
+            .update(userDetails.accessToken)
+            .digest('hex');
+
+        const hashRT = createHmac('sha256', process.env.SECRET)
+            .update(userDetails.refreshToken)
+            .digest('hex');
+
+        userDetails.accessToken = hashAT;
+        userDetails.refreshToken = hashRT;
+
         const newUser = new this.userModel(userDetails);
         return await newUser.save();
     }
